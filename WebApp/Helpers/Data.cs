@@ -11,7 +11,7 @@ namespace WebApp.Helpers
     {
         private static Data _instance = null;
 
-        //public BinaryList<SATModel> Lista = new BinaryList<SATModel>();
+        public ArbolB<SATModel> Lista = new ArbolB<SATModel>();
 
         public static Data Instance
         {
@@ -24,9 +24,5 @@ namespace WebApp.Helpers
                 return _instance;
             }
         }
-        public List<SATModel> ListaS = new List<SATModel>
-        {
-            
-        };
     }
 }

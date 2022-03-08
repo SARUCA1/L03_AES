@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    public class BinaryList
+    public class Nodo<T>
     {
-
+        public T info;
+        public Nodo<T> nodo;
+        public Nodo<T> izq;
+        public Nodo<T> der;
     }
 }

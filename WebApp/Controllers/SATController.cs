@@ -55,7 +55,7 @@ namespace WebApp.Controllers
                 while (csv.Read())
                 {
                     var lista = csv.GetRecord<SATModel>();
-                    Lista.Add(lista); //<--Cambio a agregar a arbol binario
+                    Data.Instance.Lista.Insertar(lista); //<--Cambio a agregar a arbol binario
                 }
             }
 

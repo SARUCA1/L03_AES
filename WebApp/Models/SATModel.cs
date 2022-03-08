@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Helpers;
 
 namespace WebApp.Models
 {
@@ -31,6 +32,7 @@ namespace WebApp.Models
         internal static bool Save(SATModel model)
         {
             //Data.Instance.Lista.Add<SATModel>(model);
+            Data.Instance.Lista.Insertar(model);
             return true;
         }
     }

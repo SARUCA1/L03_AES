@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    class ArbolB
+    public class ArbolB<T>
     {
 
         //Arbol Ordenado
-        class Nodo
-        {
-            public int info;
-            public Nodo izq, der;
-        }
-        Nodo raiz;
+        Nodo<T> raiz;
 
         //Arbol vacio
         public ArbolB()
@@ -24,10 +19,10 @@ namespace L03_AES
         }
 
         //Agregar a arbol
-        public void Insertar(int dato)
+        public void Insertar(T dato)
         {
-            Nodo nuevo;
-            nuevo = new Nodo();
+            Nodo<T> nuevo;
+            nuevo = new Nodo<T>();
             nuevo.info = dato;
             nuevo.izq = null;
             nuevo.der = null;
@@ -35,12 +30,12 @@ namespace L03_AES
                 raiz = nuevo;
             else
             {
-                Nodo anterior = null, reco;
+                Nodo<T> anterior = null, reco;
                 reco = raiz;
                 while (reco != null)
                 {
                     anterior = reco;
-                    if (dato < reco.info)
+                    if ()//dato < reco.info)
                         reco = reco.izq;
                     else
                         reco = reco.der;
@@ -52,7 +47,7 @@ namespace L03_AES
             }
         }
         // Imprimir Arbol Preorden
-        private void ImprimirPre(Nodo recorrido)
+        private void ImprimirPre(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
@@ -68,7 +63,7 @@ namespace L03_AES
             Console.WriteLine();
         }
         // Imprimir arbol inorder
-        private void ImprimirIn(Nodo recorrido)
+        private void ImprimirIn(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
@@ -85,7 +80,7 @@ namespace L03_AES
         }
 
         //Imprimir arbol post order
-        private void ImprimirPost(Nodo recorrido)
+        private void ImprimirPost(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
