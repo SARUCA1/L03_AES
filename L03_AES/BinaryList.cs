@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    public class Class1
+    public class BinaryList
     {
+
     }
 }
