@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CsvHelper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Helpers;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -12,7 +18,48 @@ namespace WebApp.Controllers
         // GET: SATController
         public ActionResult Index()
         {
-            return View();
+            return View();//Data.Instance.Lista;
+        }
+
+        [HttpGet]
+        public IActionResult Index(List<SATModel> Lista = null)
+        {
+            Lista = Lista == null ? new List<SATModel>() : Lista;
+            return View(Lista);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+
+            var Lista = this.GetTeamList(file.FileName);
+
+            return Index(Lista);
+        }
+        private List<SATModel> GetTeamList(string fileName)
+        {
+            List<SATModel> Lista = new List<SATModel>();
+
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var lista = csv.GetRecord<SATModel>();
+                    Lista.Add(lista); //<--Cambio a agregar a arbol binario
+                }
+            }
+
+            return Lista;
         }
 
         // GET: SATController/Details/5
@@ -34,6 +81,15 @@ namespace WebApp.Controllers
         {
             try
             {
+                SATModel.Save(new SATModel
+                {
+                    ID = collection["ID"],
+                    Email = collection["Email"],
+                    Propietario = collection["Propietario"],
+                    Color = collection["Color"],
+                    Marca = collection["Marca"],
+                    Serie = collection["Serie"],
+                });
                 return RedirectToAction(nameof(Index));
             }
             catch
