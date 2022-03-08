@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArbolB.cs" />
     <Compile Include="BinaryList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
