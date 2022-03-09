@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Superintendencia de Administración Tributaria</h1>
 <form asp-controller="SAT" asp-action="Index" method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
     <hr />
@@ -12,6 +12,10 @@
 </form>
 <p>
     <a asp-action="Create">Create New</a>
+    <hr/>
+    @Html.ActionLink("PreOrder", "PreOrder", new { }) |
+    @Html.ActionLink("InOrder", "InOrder", new { }) |
+    @Html.ActionLink("PostOrder", "PostOrder", new { }) |
 </p>
 <table class="table">
     <thead>

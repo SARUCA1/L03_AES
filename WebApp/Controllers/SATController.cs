@@ -148,5 +148,20 @@ namespace WebApp.Controllers
                 return View();
             }
         }
+
+        public ActionResult PreOrder()
+        {
+            return View();
+        }
+
+        public ActionResult InOrder()
+        {
+            return View();
+        }
+
+        public ActionResult PostOrder()
+        {
+            return View();
+        }
     }
 }
