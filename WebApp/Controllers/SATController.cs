@@ -18,7 +18,7 @@ namespace WebApp.Controllers
         // GET: SATController
         public ActionResult Index()
         {
-            return View();//Data.Instance.Lista;
+            return View(Data.Instance.Lista);//Data.Instance.Lista;
         }
 
         [HttpGet]
@@ -38,14 +38,14 @@ namespace WebApp.Controllers
                 fileStream.Flush();
             }
 
-            var Lista = this.GetTeamList(file.FileName);
+            var Lista = this.GetList(file.FileName);
 
             return Index(Lista);
         }
-        private List<SATModel> GetTeamList(string fileName)
+        private List<SATModel> GetList(string fileName)
         {
             List<SATModel> Lista = new List<SATModel>();
-
+            #region Read CSV
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
             using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -55,10 +55,19 @@ namespace WebApp.Controllers
                 while (csv.Read())
                 {
                     var lista = csv.GetRecord<SATModel>();
-                    Lista.Add(lista); //<--Cambio a agregar a arbol binario
+                    Data.Instance.Lista.Insertar(lista);
                 }
             }
+            #endregion
 
+            //#region Create CSV
+            //path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}";
+            //using (var write = new StreamWriter(path + "\\NewFile.csv"))
+            //using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
+            //{
+            //    csv.WriteRecord(Lista);
+            //}
+            //#endregion
             return Lista;
         }
 
@@ -81,7 +90,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                SATModel.Save(new SATModel
+                var informacio = SATModel.Save(new SATModel
                 {
                     ID = collection["ID"],
                     Email = collection["Email"],

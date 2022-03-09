@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    class ArbolB
+    public class ArbolB<T> where T : IComparable
     {
 
         //Arbol Ordenado
-        class Nodo
-        {
-            public int info;
-            public Nodo izq, der;
-        }
-        Nodo raiz;
+        Nodo<T> raiz;
 
         //Arbol vacio
         public ArbolB()
@@ -24,35 +20,36 @@ namespace L03_AES
         }
 
         //Agregar a arbol
-        public void Insertar(int dato)
+        public void Insertar(T dato)
         {
-            Nodo nuevo;
-            nuevo = new Nodo();
-            nuevo.info = dato;
-            nuevo.izq = null;
-            nuevo.der = null;
+            Nodo<T> nuevo = new Nodo<T>
+            {
+                info = dato,
+                izq = null,
+                der = null
+            };
             if (raiz == null)
                 raiz = nuevo;
             else
             {
-                Nodo anterior = null, reco;
-                reco = raiz;
-                while (reco != null)
+                Nodo<T> anterior = null, pivot;
+                pivot = raiz;
+                while (pivot != null)
                 {
-                    anterior = reco;
-                    if (dato < reco.info)
-                        reco = reco.izq;
+                    anterior = pivot;
+                    if (dato.CompareTo(pivot.info) < 0)
+                        pivot = pivot.izq;
                     else
-                        reco = reco.der;
+                        pivot = pivot.der;
                 }
-                if (dato < anterior.info)
+                if (dato.CompareTo(anterior.info) < 0)
                     anterior.izq = nuevo;
                 else
                     anterior.der = nuevo;
             }
         }
         // Imprimir Arbol Preorden
-        private void ImprimirPre(Nodo recorrido)
+        private void ImprimirPre(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
@@ -68,7 +65,7 @@ namespace L03_AES
             Console.WriteLine();
         }
         // Imprimir arbol inorder
-        private void ImprimirIn(Nodo recorrido)
+        private void ImprimirIn(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
@@ -85,7 +82,7 @@ namespace L03_AES
         }
 
         //Imprimir arbol post order
-        private void ImprimirPost(Nodo recorrido)
+        private void ImprimirPost(Nodo<T> recorrido)
         {
             if (recorrido != null)
             {
@@ -101,6 +98,5 @@ namespace L03_AES
             ImprimirPost(raiz);
             Console.WriteLine();
         }
-
     }
 }
