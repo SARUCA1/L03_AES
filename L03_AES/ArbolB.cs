@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    public class ArbolB<T>
+    public class ArbolB<T> where T : IComparable
     {
 
         //Arbol Ordenado
@@ -21,26 +22,27 @@ namespace L03_AES
         //Agregar a arbol
         public void Insertar(T dato)
         {
-            Nodo<T> nuevo;
-            nuevo = new Nodo<T>();
-            nuevo.info = dato;
-            nuevo.izq = null;
-            nuevo.der = null;
+            Nodo<T> nuevo = new Nodo<T>
+            {
+                info = dato,
+                izq = null,
+                der = null
+            };
             if (raiz == null)
                 raiz = nuevo;
             else
             {
-                Nodo<T> anterior = null, reco;
-                reco = raiz;
-                while (reco != null)
+                Nodo<T> anterior = null, pivot;
+                pivot = raiz;
+                while (pivot != null)
                 {
-                    anterior = reco;
-                    if ()//dato < reco.info)
-                        reco = reco.izq;
+                    anterior = pivot;
+                    if (dato.CompareTo(pivot.info) < 0)//dato < pivot.info)
+                        pivot = pivot.izq;
                     else
-                        reco = reco.der;
+                        pivot = pivot.der;
                 }
-                if (dato < anterior.info)
+                if (dato.CompareTo(pivot.info) < 0)
                     anterior.izq = nuevo;
                 else
                     anterior.der = nuevo;
@@ -96,6 +98,5 @@ namespace L03_AES
             ImprimirPost(raiz);
             Console.WriteLine();
         }
-
     }
 }

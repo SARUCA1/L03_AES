@@ -8,7 +8,7 @@ using WebApp.Helpers;
 
 namespace WebApp.Models
 {
-    public class SATModel
+    public class SATModel : IComparable
     {
         [StringLength(11)]
         [Index(0)]
@@ -34,6 +34,12 @@ namespace WebApp.Models
             //Data.Instance.Lista.Add<SATModel>(model);
             Data.Instance.Lista.Insertar(model);
             return true;
+        }
+
+        public int CompareTo(object obj)
+        {
+            var sat = (SATModel)obj;
+            return ID.CompareTo(sat.ID);
         }
     }
 }
