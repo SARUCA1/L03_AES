@@ -48,22 +48,7 @@ namespace L03_AES
                     anterior.der = nuevo;
             }
         }
-        // Imprimir Arbol Preorden
-        private void ImprimirPre(Nodo<T> recorrido)
-        {
-            if (recorrido != null)
-            {
-                Console.Write(recorrido.info + " ");
-                ImprimirPre(recorrido.izq);
-                ImprimirPre(recorrido.der);
-            }
-        }
 
-        public void ImprimirPre()
-        {
-            ImprimirPre(raiz);
-            Console.WriteLine();
-        }
         // Imprimir arbol inorder
         private void ImprimirIn(Nodo<T> recorrido)
         {
@@ -78,25 +63,7 @@ namespace L03_AES
         public void ImprimirIn()
         {
             ImprimirIn(raiz);
-            Console.WriteLine();
         }
 
-        //Imprimir arbol post order
-        private void ImprimirPost(Nodo<T> recorrido)
-        {
-            if (recorrido != null)
-            {
-                ImprimirPost(recorrido.izq);
-                ImprimirPost(recorrido.der);
-                Console.Write(recorrido.info + " ");
-            }
-        }
-
-
-        public void ImprimirPost()
-        {
-            ImprimirPost(raiz);
-            Console.WriteLine();
-        }
     }
 }
