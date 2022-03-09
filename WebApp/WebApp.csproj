@@ -13,4 +13,8 @@
     <ProjectReference Include="..\L03_AES\L03_AES.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\files\" />
+  </ItemGroup>
+
 </Project>

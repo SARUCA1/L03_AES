@@ -37,12 +37,12 @@ namespace L03_AES
                 while (pivot != null)
                 {
                     anterior = pivot;
-                    if (dato.CompareTo(pivot.info) < 0)//dato < pivot.info)
+                    if (dato.CompareTo(pivot.info) < 0)
                         pivot = pivot.izq;
                     else
                         pivot = pivot.der;
                 }
-                if (dato.CompareTo(pivot.info) < 0)
+                if (dato.CompareTo(anterior.info) < 0)
                     anterior.izq = nuevo;
                 else
                     anterior.der = nuevo;
