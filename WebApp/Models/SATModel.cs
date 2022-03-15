@@ -12,26 +12,25 @@ namespace WebApp.Models
     {
         [StringLength(11)]
         [Index(0)]
-        public string ID { get; set; }
+        public string ID { get; set; } = "";
         [StringLength(60)]
         [Index(1)]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
         [StringLength(60)]
         [Index(2)]
-        public string Propietario { get; set; }
+        public string Propietario { get; set; } = "";
         [StringLength(20)]
         [Index(3)]
-        public string Color { get; set; }
+        public string Color { get; set; } = "";
         [StringLength(30)]
         [Index(4)]
-        public string Marca { get; set; }
+        public string Marca { get; set; } = "";
         [StringLength(100)]
         [Index(5)]
-        public string Serie { get; set; }
+        public string Serie { get; set; } = "";
 
         internal static bool Save(SATModel model)
         {
-            //Data.Instance.Lista.Add<SATModel>(model);
             Data.Instance.Lista.Insertar(model);
             return true;
         }

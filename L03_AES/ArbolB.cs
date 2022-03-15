@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace L03_AES
 {
-    public class ArbolB<T> where T : IComparable
+    public class ArbolB<T> : IEnumerable<T>, IEnumerable where T : IComparable //: IEnumerable<T>, IEnumerable
     {
 
         //Arbol Ordenado
         Nodo<T> raiz;
-
-        //Arbol vacio
-        public ArbolB()
+        public delegate Comparison<T> comparador (T value1, T value2);
+    //Arbol vacio
+    public ArbolB()
         {
             raiz = null;
         }
@@ -37,7 +37,7 @@ namespace L03_AES
                 while (pivot != null)
                 {
                     anterior = pivot;
-                    if (dato.CompareTo(pivot.info) < 0)
+                    if (comparador(dato, pivot.info))
                         pivot = pivot.izq;
                     else
                         pivot = pivot.der;
@@ -49,20 +49,16 @@ namespace L03_AES
             }
         }
 
-        // Imprimir arbol inorder
-        private void ImprimirIn(Nodo<T> recorrido)
+        public IEnumerator<T> GetEnumerator()
         {
-            if (recorrido != null)
-            {
-                ImprimirIn(recorrido.izq);
-                Console.Write(recorrido.info + " ");
-                ImprimirIn(recorrido.der);
-            }
+            yield return raiz.izq.info;
+            yield return raiz.info;
+            yield return raiz.der.info;
         }
 
-        public void ImprimirIn()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            ImprimirIn(raiz);
+            return GetEnumerator();
         }
 
     }

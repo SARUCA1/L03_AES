@@ -22,25 +22,26 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(List<SATModel> Lista = null)
+        public IActionResult Index(List<SATModel> List = null)
         {
-            Lista = Lista == null ? new List<SATModel>() : Lista;
-            return View(Lista);
+            List ??= new List<SATModel>();
+            return View(List);
         }
 
         [HttpPost]
         public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
         {
+            #region Upload CSV
             string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
             using (FileStream fileStream = System.IO.File.Create(fileName))
             {
                 file.CopyTo(fileStream);
                 fileStream.Flush();
             }
+            #endregion
+            var modelo = this.GetList(file.FileName);
 
-            var Lista = this.GetList(file.FileName);
-
-            return Index(Lista);
+            return View(Data.Instance.Lista);
         }
         private List<SATModel> GetList(string fileName)
         {
@@ -56,6 +57,7 @@ namespace WebApp.Controllers
                 {
                     var lista = csv.GetRecord<SATModel>();
                     Data.Instance.Lista.Insertar(lista);
+                    //Lista.Add(lista);
                 }
             }
             #endregion
@@ -68,6 +70,8 @@ namespace WebApp.Controllers
             //    csv.WriteRecord(Lista);
             //}
             //#endregion
+
+            //return Data.Instance.Lista;
             return Lista;
         }
 
