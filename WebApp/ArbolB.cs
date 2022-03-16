@@ -50,11 +50,6 @@ namespace WebApp
             }
         }
 
-        internal void Insertar(SATModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         // Imprimir arbol inorder
         private void ImprimirIn(Nodo<T> recorrido)
         {
