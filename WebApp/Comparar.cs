@@ -33,7 +33,7 @@ namespace WebApp
         {
             if (a.Email != b.Email)
             {
-                if (a.ID.CompareTo(b.ID) < 0)
+                if (a.Email.CompareTo(b.Email) < 0)
                 {
                     return -1;
                 }
@@ -50,9 +50,9 @@ namespace WebApp
 
         public static int CompSerial(SATModel a, SATModel b)
         {
-            if (a.Email != b.Email)
+            if (a.Serie != b.Serie)
             {
-                if (a.ID.CompareTo(b.ID) < 0)
+                if (a.Serie.CompareTo(b.Serie) < 0)
                 {
                     return -1;
                 }
