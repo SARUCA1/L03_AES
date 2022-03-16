@@ -29,7 +29,7 @@ namespace WebApp.Models
         [Index(5)]
         public string Serie { get; set; }
 
-        internal static bool Save(SATModel model)
+        public static bool Save(SATModel model)
         {
             //Data.Instance.Lista.Add<SATModel>(model);
             Data.Instance.Lista.Insertar(model);

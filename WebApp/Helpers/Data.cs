@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using L03_AES;
 using WebApp.Models;
 
 namespace WebApp.Helpers
@@ -12,6 +11,8 @@ namespace WebApp.Helpers
         private static Data _instance = null;
 
         public ArbolB<SATModel> Lista = new ArbolB<SATModel>();
+        public ArbolB<SATModel> ArbolID = new ArbolB<SATModel>();
+        public ArbolB<SATModel> ArbolSerial = new ArbolB<SATModel>();
 
         public static Data Instance
         {
