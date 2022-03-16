@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApp.Models;
 
-namespace L03_AES
+namespace WebApp
 {
-    public class ArbolB<T> where T : IComparable
+    public class ArbolB<T>
     {
 
         //Arbol Ordenado
@@ -20,7 +21,7 @@ namespace L03_AES
         }
 
         //Agregar a arbol
-        public void Insertar(T dato)
+        public void Insertar(T dato, Comparar<T> comparador)
         {
             Nodo<T> nuevo = new Nodo<T>
             {
@@ -37,16 +38,21 @@ namespace L03_AES
                 while (pivot != null)
                 {
                     anterior = pivot;
-                    if (dato.CompareTo(pivot.info) < 0)
+                    if (comparador(dato, pivot.info) < 0)
                         pivot = pivot.izq;
                     else
                         pivot = pivot.der;
                 }
-                if (dato.CompareTo(anterior.info) < 0)
+                if (comparador(dato, anterior.info) < 0)
                     anterior.izq = nuevo;
                 else
                     anterior.der = nuevo;
             }
+        }
+
+        internal void Insertar(SATModel model)
+        {
+            throw new NotImplementedException();
         }
 
         // Imprimir arbol inorder

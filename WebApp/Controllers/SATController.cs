@@ -55,7 +55,9 @@ namespace WebApp.Controllers
                 while (csv.Read())
                 {
                     var lista = csv.GetRecord<SATModel>();
-                    Data.Instance.Lista.Insertar(lista);
+                    Data.Instance.Lista.Insertar(lista, Comparar.CompEmail);
+                    Data.Instance.ArbolID.Insertar(lista, Comparar.CompID);
+                    Data.Instance.ArbolSerial.Insertar(lista, Comparar.CompSerial);
                 }
             }
             #endregion
