@@ -32,7 +32,9 @@ namespace WebApp.Models
         public static bool Save(SATModel model)
         {
             //Data.Instance.Lista.Add<SATModel>(model);
-            Data.Instance.Lista.Insertar(model);
+            Data.Instance.Lista.Insertar(model, Comparar.CompEmail);
+            Data.Instance.ArbolID.Insertar(model, Comparar.CompID);
+            Data.Instance.ArbolSerial.Insertar(model, Comparar.CompSerial);
             return true;
         }
 
