@@ -8,7 +8,7 @@ using WebApp.Helpers;
 
 namespace WebApp.Models
 {
-    public class SATModel : IComparable
+    public class SATModel 
     {
         [StringLength(11)]
         [Index(0)]
