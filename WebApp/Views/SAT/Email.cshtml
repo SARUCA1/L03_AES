@@ -7,11 +7,15 @@
 <h1>Email</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
-    <hr />
-    @Html.ActionLink("ID", "ID", new { }) |
-    @Html.ActionLink("Serial", "Serial", new { }) |
+    <a asp-action="Create">Create New</a> <p>@ViewBag.Message</p> <p>@ViewData["Message"]</p>
+<hr />
+@Html.ActionLink("ID", "ID", new { }) |
+@Html.ActionLink("Serial", "Serial", new { }) |
+@Html.ActionLink("SerialAVL", "SerialAVL", new { }) |
+@Html.ActionLink("EmailAVL", "EmailAVL", new { }) |
+@Html.ActionLink("IDAVL", "IDAVL", new { }) |
 </p>
+<<<<<<< HEAD
 
 <div class="input-group input-group-lg">
     <input type="type" name="Medicamento" value="" />
@@ -71,3 +75,55 @@
             }
         </tbody>
     </table>
+=======
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Propietario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Propietario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Serie)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+>>>>>>> 0555cc5672fad22fe61774c6854056b284fa7e0d

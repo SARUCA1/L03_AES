@@ -26,9 +26,7 @@ namespace WebApp.Controllers
         // GET: SATController
         public ActionResult Index(ArbolB<SATModel> lista)
         {
-            ViewBag.Message = "El tiempo de carga es de: " +tiempo +" Milisegundos";
-            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " +OrdenamientoT+ " Milisegundos";
-
+            
             return View(Data.Instance.Lista);//Data.Instance.Lista;
         }
 
@@ -167,6 +165,7 @@ namespace WebApp.Controllers
 
         public ActionResult Email(string busqueda)
         {
+<<<<<<< HEAD
             //if(busqueda==null || busqueda == "")
             //{
             //    return View(Data.Instance.Lista);
@@ -175,17 +174,46 @@ namespace WebApp.Controllers
             //{
 
             //}
+=======
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
+>>>>>>> 0555cc5672fad22fe61774c6854056b284fa7e0d
             return View(Data.Instance.Lista);
         }
 
         public ActionResult ID()
         {
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
             return View(Data.Instance.ArbolID);
         }
 
         public ActionResult Serial()
         {
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
             return View(Data.Instance.ArbolSerial);
+        }
+
+        public ActionResult IDAVL()
+        {
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
+            return View(Data.Instance.AvlID);
+        }
+
+        public ActionResult EmailAVL()
+        {
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
+            return View(Data.Instance.AvlMail);
+        }
+
+        public ActionResult SerialAVL()
+        {
+            ViewBag.Message = "El tiempo de carga es de: " + tiempo.ToString() + " Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " + OrdenamientoT.ToString() + " Milisegundos";
+            return View(Data.Instance.AvlSerial);
         }
     }
 }
