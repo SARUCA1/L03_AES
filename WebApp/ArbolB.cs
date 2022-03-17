@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApp.Models;
+using WebApp.Helpers;
 
 namespace WebApp
 {
-    public class ArbolB<T>
+    public class ArbolB<T> : IEnumerable
     {
 
         //Arbol Ordenado
@@ -50,21 +51,30 @@ namespace WebApp
             }
         }
 
-        // Imprimir arbol inorder
-        private void ImprimirIn(Nodo<T> recorrido)
+        private void InOrder(Nodo<T> root, ref ShowList<T> queue)
         {
-            if (recorrido != null)
+            if(root == null)
             {
-                ImprimirIn(recorrido.izq);
-                Console.Write(recorrido.info + " ");
-                ImprimirIn(recorrido.der);
+                return;
+            }
+            InOrder(root.izq, ref queue);
+            queue.Add(root.info);
+            InOrder(root.der, ref queue);
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            var queue = new ShowList<T>();
+            InOrder(raiz, ref queue);
+
+            while(!queue.Empty())
+            {
+                yield return queue.Dequeue();
             }
         }
-
-        public void ImprimirIn()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            ImprimirIn(raiz);
+            return GetEnumerator();
         }
-
     }
 }

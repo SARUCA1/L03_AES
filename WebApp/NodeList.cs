@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp
 {
-    public class NodeList
+    public class NodeList <T>
     {
+        public T value;
+        public NodeList<T> Next;
     }
 }
