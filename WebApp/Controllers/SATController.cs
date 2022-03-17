@@ -10,11 +10,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Helpers;
 using WebApp.Models;
+using System.Diagnostics;
 
 namespace WebApp.Controllers
 {
     public class SATController : Controller
     {
+
+        //StopWatch 
+
+        Stopwatch Time = new Stopwatch();
+        Stopwatch TimeOrder = new Stopwatch();
+
         // GET: SATController
         public ActionResult Index()
         {
@@ -44,6 +51,7 @@ namespace WebApp.Controllers
         }
         private List<SATModel> GetList(string fileName)
         {
+            Time.Start();
             List<SATModel> Lista = new List<SATModel>();
             #region Read CSV
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
@@ -55,10 +63,13 @@ namespace WebApp.Controllers
                 while (csv.Read())
                 {
                     var lista = csv.GetRecord<SATModel>();
+                    TimeOrder.Start();
                     Data.Instance.Lista.Insertar(lista, Comparar.CompEmail);
                     Data.Instance.ArbolID.Insertar(lista, Comparar.CompID);
                     Data.Instance.ArbolSerial.Insertar(lista, Comparar.CompSerial);
+                    
                 }
+                TimeOrder.Stop();
             }
             #endregion
 
@@ -70,6 +81,9 @@ namespace WebApp.Controllers
             //    csv.WriteRecord(Lista);
             //}
             //#endregion
+            Time.Stop();
+            var tiempo = Time.Elapsed.TotalMilliseconds;
+            var OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
             return Lista;
         }
 
@@ -151,17 +165,17 @@ namespace WebApp.Controllers
             }
         }
 
-        public ActionResult PreOrder()
+        public ActionResult Email()
         {
             return View();
         }
 
-        public ActionResult InOrder()
+        public ActionResult ID()
         {
             return View();
         }
 
-        public ActionResult PostOrder()
+        public ActionResult Serial()
         {
             return View();
         }
