@@ -8,16 +8,16 @@ namespace WebApp
 {
     public class ShowList<T>
     {
-        NodeList<T> Head;
-        NodeList<T> Cola;
-        NodeList<T> Return;
+        NodeList<T> Head = new NodeList<T>();
+        NodeList<T> Cola = new NodeList<T>();
+        NodeList<T> Return = new NodeList<T>();
 
         public void Add(T Value)
         {
             NodeList<T> Nuevo = new NodeList<T>();
             Nuevo.value = Value;
 
-            if (Head == null)
+            if (Head.value == null)
             {
                 Head = Nuevo;
                 Cola = Nuevo;
@@ -28,7 +28,7 @@ namespace WebApp
                 Cola = Nuevo;
             }
         }
-        public NodeList<T> Dequeue()
+        public T Dequeue()
         {
             if(Head != null)
             {
@@ -39,7 +39,7 @@ namespace WebApp
                     Cola = null;
                 }
             }
-            return Return;
+            return Return.value;
         }
         public bool Empty()
         {

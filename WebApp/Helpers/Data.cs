@@ -10,6 +10,7 @@ namespace WebApp.Helpers
     {
         private static Data _instance = null;
 
+
         public ArbolB<SATModel> Lista = new ArbolB<SATModel>();
         public ArbolB<SATModel> ArbolID = new ArbolB<SATModel>();
         public ArbolB<SATModel> ArbolSerial = new ArbolB<SATModel>();
