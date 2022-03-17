@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApp
 {
-    public class AVL<T>
+    public class AVL<T> : IEnumerable<T>, IEnumerable
     {
         Nodo<T> raiz;
         public int altura;
@@ -126,5 +127,35 @@ namespace WebApp
                 return 1 + Math.Max(Altura(nodo.izq), Altura(nodo.der));
             }
         }
+
+
+        private void InOrderAVL(Nodo<T> root, ref ShowList<T> queue)
+        {
+            if (root != null)
+            {
+                InOrderAVL(root.izq, ref queue);
+                queue.Add(root.info);
+                InOrderAVL(root.der, ref queue);
+            }
+            return;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            var queue = new ShowList<T>();
+            InOrderAVL(raiz, ref queue);
+
+            while (!queue.Empty())
+            {
+                yield return queue.Dequeue();
+            }
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+
     }
+
 }
