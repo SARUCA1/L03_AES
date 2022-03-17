@@ -5,40 +5,48 @@ using System.Threading.Tasks;
 
 namespace WebApp
 {
-    public class AVL
+    public class AVL<T>
     {
-        public int valor;
-        public AVL NodoIzquierdo;
-        public AVL NodoDerecho;
-        public AVL NodoPadre;
+        Nodo<T> raiz;
         public int altura;
-        public AVL(int valornuevo, AVL izquierdo, AVL derecho, AVL padre)
-        {
-            valor = valornuevo;
-            NodoIzquierdo = izquierdo;
-            NodoDerecho = derecho;
-            NodoPadre = padre;
-            altura = 0;
-        }
 
-        public AVL Insertar(int valornuevo, AVL raiz)
+        public AVL()
         {
+            raiz = null;
+        }
+        public void Insertar(T valornuevo, Comparar<T> comparador)
+        {
+            Nodo<T> nuevo = new Nodo<T>
+            {
+                info = valornuevo,
+                izq = null,
+                der = null
+            };
             if (raiz == null)
             {
-                raiz = new AVL(valornuevo, null, null, null);
+                raiz = nuevo;
             }
-            else if (valornuevo < raiz.valor)
+            else
             {
-                raiz.NodoIzquierdo = Insertar(valornuevo, raiz.NodoIzquierdo);
-            }
-            else if (valornuevo > raiz.valor)
-            {
-                raiz.NodoDerecho = Insertar(valornuevo, raiz.NodoDerecho);
+                Nodo<T> anterior = null, pivot;
+                pivot = raiz;
+                while (pivot != null)
+                {
+                    anterior = pivot;
+                    if (comparador(valornuevo, pivot.info) < 0)
+                    {
+                        pivot = pivot.izq;
+                    }
+                    else if (comparador(valornuevo, pivot.info) > 0)
+                    {
+                        pivot = pivot.der;
+                    }
+                }
             }
             //Rotaciones
-            if (Alturas(raiz.NodoIzquierdo) - Alturas(raiz.NodoDerecho) == 2)
+            if (Alturas(raiz.izq) - Alturas(raiz.der) == 2)
             {
-                if (valornuevo < raiz.NodoIzquierdo.valor)
+                if (comparador(valornuevo, raiz.izq.info) < 0)
                 {
                     raiz = rotacionIzquierdaSimple(raiz);
                 }
@@ -47,9 +55,9 @@ namespace WebApp
                     raiz = rotacionIzquierdaDoble(raiz);
                 }
             }
-            if (Alturas(raiz.NodoDerecho) - Alturas(raiz.NodoIzquierdo) == 2)
+            if (Alturas(raiz.der) - Alturas(raiz.izq) == 2)
             {
-                if (valornuevo < raiz.NodoDerecho.valor)
+                if (comparador(valornuevo, raiz.der.info) > 0)
                 {
                     raiz = rotacionDerechaSimple(raiz);
                 }
@@ -58,8 +66,7 @@ namespace WebApp
                     raiz = rotacionDerechaDoble(raiz);
                 }
             }
-            raiz.altura = max(Alturas(raiz.NodoIzquierdo), Alturas(raiz.NodoDerecho)) + 1;
-            return raiz;
+            raiz.altura = max(Alturas(raiz.izq), Alturas(raiz.der)) + 1;
         }
 
         //rama superior
@@ -67,48 +74,48 @@ namespace WebApp
         {
             return a > b ? a : b;
         }
-        private static int Alturas(AVL raiz)
+        private static int Alturas(Nodo<T> raiz)
         {
             return raiz == null ? -1 : raiz.altura;
         }
 
         //rotacion simple izquierda
-        private static AVL rotacionIzquierdaSimple(AVL a)
+        private static Nodo<T> rotacionIzquierdaSimple(Nodo<T> a)
         {
-            AVL b = a.NodoIzquierdo;
-            a.NodoIzquierdo = b.NodoDerecho;
-            b.NodoDerecho = a;
-            a.altura = max(Alturas(a.NodoIzquierdo), Alturas(a.NodoDerecho)) + 1;
-            b.altura = max(Alturas(b.NodoIzquierdo), a.altura) + 1;
+            Nodo<T> b = a.izq;
+            a.izq = b.der;
+            b.der = a;
+            a.altura = max(Alturas(a.izq), Alturas(a.der)) + 1;
+            b.altura = max(Alturas(b.izq), a.altura) + 1;
             return b;
         }
 
         //Rotacion derecha simple
-        private static AVL rotacionDerechaSimple(AVL b)
+        private static Nodo<T> rotacionDerechaSimple(Nodo<T> b)
         {
-            AVL a = b.NodoIzquierdo;
-            b.NodoDerecho = a.NodoIzquierdo;
-            a.NodoIzquierdo = b;
-            b.altura = max(Alturas(b.NodoIzquierdo), Alturas(b.NodoDerecho)) + 1;
-            a.altura = max(Alturas(a.NodoIzquierdo), b.altura) + 1;
+            Nodo<T> a = b.izq;
+            b.der = a.izq;
+            a.izq = b;
+            b.altura = max(Alturas(b.izq), Alturas(b.der)) + 1;
+            a.altura = max(Alturas(a.izq), b.altura) + 1;
             return a;
         }
 
         //Rotacion doble izquierda
-        private static AVL rotacionIzquierdaDoble(AVL a)
+        private static Nodo<T> rotacionIzquierdaDoble(Nodo<T> a)
         {
-            a.NodoIzquierdo = rotacionDerechaSimple(a.NodoIzquierdo);
+            a.izq = rotacionDerechaSimple(a.izq);
             return rotacionIzquierdaDoble(a); 
         }
 
         //Rotacion doble derecha
-        private static AVL rotacionDerechaDoble(AVL a)
+        private static Nodo<T> rotacionDerechaDoble(Nodo<T> a)
         {
-            a.NodoDerecho = rotacionIzquierdaSimple(a.NodoDerecho);
+            a.der = rotacionIzquierdaSimple(a.der);
             return rotacionIzquierdaDoble(a);
         }
         //altura
-        public int Altura(AVL nodo)
+        public int Altura(Nodo<T> nodo)
         {
             if (nodo == null)
             {
@@ -116,7 +123,7 @@ namespace WebApp
             }
             else
             {
-                return 1 + Math.Max(Altura(nodo.NodoIzquierdo), Altura(nodo.NodoDerecho));
+                return 1 + Math.Max(Altura(nodo.izq), Altura(nodo.der));
             }
         }
     }

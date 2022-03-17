@@ -23,7 +23,7 @@ namespace WebApp.Controllers
         Stopwatch TimeOrder = new Stopwatch();
 
         // GET: SATController
-        public ActionResult Index()
+        public ActionResult Index(ArbolB<SATModel> lista)
         {
             return View(Data.Instance.Lista);//Data.Instance.Lista;
         }
@@ -49,7 +49,7 @@ namespace WebApp.Controllers
 
             return Index(Lista);
         }
-        private List<SATModel> GetList(string fileName)
+        private ArbolB<SATModel> GetList(string fileName)
         {
             Time.Start();
             List<SATModel> Lista = new List<SATModel>();
@@ -67,7 +67,11 @@ namespace WebApp.Controllers
                     Data.Instance.Lista.Insertar(lista, Comparar.CompEmail);
                     Data.Instance.ArbolID.Insertar(lista, Comparar.CompID);
                     Data.Instance.ArbolSerial.Insertar(lista, Comparar.CompSerial);
-                    
+
+                    Data.Instance.AvlMail.Insertar(lista, Comparar.CompEmail);
+                    Data.Instance.AvlID.Insertar(lista, Comparar.CompID);
+                    Data.Instance.AvlSerial.Insertar(lista, Comparar.CompSerial);
+
                 }
                 TimeOrder.Stop();
             }
@@ -84,7 +88,7 @@ namespace WebApp.Controllers
             Time.Stop();
             var tiempo = Time.Elapsed.TotalMilliseconds;
             var OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
-            return Lista;
+            return Data.Instance.Lista;
         }
 
         // GET: SATController/Details/5
@@ -167,17 +171,17 @@ namespace WebApp.Controllers
 
         public ActionResult Email()
         {
-            return View();
+            return (ActionResult)Data.Instance.Lista.GetEnumerator();
         }
 
         public ActionResult ID()
         {
-            return View();
+            return (ActionResult)Data.Instance.Lista.GetEnumerator();
         }
 
         public ActionResult Serial()
         {
-            return View();
+            return (ActionResult)Data.Instance.ArbolSerial.GetEnumerator();
         }
     }
 }
