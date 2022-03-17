@@ -70,28 +70,28 @@ namespace WebApp
         }
 
         //rama superior
-        private static int max(int a, int b)
+        public int max(int a, int b)
         {
             return a > b ? a : b;
         }
-        private static int Alturas(Nodo<T> raiz)
+        public int Alturas(Nodo<T> raiz)
         {
             return raiz == null ? -1 : raiz.altura;
         }
 
         //rotacion simple izquierda
-        private static Nodo<T> rotacionIzquierdaSimple(Nodo<T> a)
+        public Nodo<T> rotacionIzquierdaSimple(Nodo<T> a)
         {
-            Nodo<T> b = a.izq;
-            a.izq = b.der;
-            b.der = a;
+            Nodo<T> b = a.der;
+            a.der = b.izq;
+            b.izq = a;
             a.altura = max(Alturas(a.izq), Alturas(a.der)) + 1;
             b.altura = max(Alturas(b.izq), a.altura) + 1;
             return b;
         }
 
         //Rotacion derecha simple
-        private static Nodo<T> rotacionDerechaSimple(Nodo<T> b)
+        public Nodo<T> rotacionDerechaSimple(Nodo<T> b)
         {
             Nodo<T> a = b.izq;
             b.der = a.izq;
@@ -102,14 +102,14 @@ namespace WebApp
         }
 
         //Rotacion doble izquierda
-        private static Nodo<T> rotacionIzquierdaDoble(Nodo<T> a)
+        public Nodo<T> rotacionIzquierdaDoble(Nodo<T> a)
         {
             a.izq = rotacionDerechaSimple(a.izq);
             return rotacionIzquierdaDoble(a); 
         }
 
         //Rotacion doble derecha
-        private static Nodo<T> rotacionDerechaDoble(Nodo<T> a)
+        public Nodo<T> rotacionDerechaDoble(Nodo<T> a)
         {
             a.der = rotacionIzquierdaSimple(a.der);
             return rotacionIzquierdaDoble(a);
