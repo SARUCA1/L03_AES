@@ -14,6 +14,8 @@ namespace WebApp.Helpers
         public ArbolB<SATModel> ArbolID = new ArbolB<SATModel>();
         public ArbolB<SATModel> ArbolSerial = new ArbolB<SATModel>();
 
+        public ShowList<SATModel> ImpresionMail = new ShowList<SATModel>();
+
         public static Data Instance
         {
             get
