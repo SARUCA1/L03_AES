@@ -84,7 +84,7 @@ namespace WebApp.Controllers
             Time.Stop();
             tiempo = Time.Elapsed.TotalMilliseconds;
             OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
-            return Data.Instance.Lista;
+            return Lista;
         }
 
         // GET: SATController/Details/5
@@ -165,8 +165,16 @@ namespace WebApp.Controllers
             }
         }
 
-        public ActionResult Email()
+        public ActionResult Email(string busqueda)
         {
+            //if(busqueda==null || busqueda == "")
+            //{
+            //    return View(Data.Instance.Lista);
+            //}
+            //else
+            //{
+
+            //}
             return View(Data.Instance.Lista);
         }
 
