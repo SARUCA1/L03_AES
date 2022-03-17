@@ -18,13 +18,17 @@ namespace WebApp.Controllers
     {
 
         //StopWatch 
-
+        double tiempo;
+        double  OrdenamientoT;
         Stopwatch Time = new Stopwatch();
         Stopwatch TimeOrder = new Stopwatch();
 
         // GET: SATController
         public ActionResult Index(ArbolB<SATModel> lista)
         {
+            ViewBag.Message = "El tiempo de carga es de: " +tiempo +" Milisegundos";
+            ViewData["Message"] = "El tiempo de ordenamiento de datos es de: " +OrdenamientoT+ " Milisegundos";
+
             return View(Data.Instance.Lista);//Data.Instance.Lista;
         }
 
@@ -78,9 +82,9 @@ namespace WebApp.Controllers
             #endregion
 
             Time.Stop();
-            var tiempo = Time.Elapsed.TotalMilliseconds;
-            var OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
-            return Lista;
+            tiempo = Time.Elapsed.TotalMilliseconds;
+            OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
+            return Data.Instance.Lista;
         }
 
         // GET: SATController/Details/5
