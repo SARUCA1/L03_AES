@@ -9,6 +9,7 @@ namespace WebApp
     public class Nodo<T>
     {
         public T info;
+        public int altura;
         public Nodo<T> nodo;
         public Nodo<T> izq;
         public Nodo<T> der;
