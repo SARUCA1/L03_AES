@@ -49,7 +49,7 @@ namespace WebApp.Controllers
 
             return Index(Lista);
         }
-        private ArbolB<SATModel> GetList(string fileName)
+        private List<SATModel> GetList(string fileName)
         {
             Time.Start();
             List<SATModel> Lista = new List<SATModel>();
@@ -77,18 +77,10 @@ namespace WebApp.Controllers
             }
             #endregion
 
-            //#region Create CSV
-            //path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}";
-            //using (var write = new StreamWriter(path + "\\NewFile.csv"))
-            //using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
-            //{
-            //    csv.WriteRecord(Lista);
-            //}
-            //#endregion
             Time.Stop();
             var tiempo = Time.Elapsed.TotalMilliseconds;
             var OrdenamientoT = TimeOrder.Elapsed.TotalMilliseconds;
-            return Data.Instance.Lista;
+            return Lista;
         }
 
         // GET: SATController/Details/5
@@ -171,17 +163,17 @@ namespace WebApp.Controllers
 
         public ActionResult Email()
         {
-            return (ActionResult)Data.Instance.Lista.GetEnumerator();
+            return View(Data.Instance.Lista);
         }
 
         public ActionResult ID()
         {
-            return (ActionResult)Data.Instance.Lista.GetEnumerator();
+            return View(Data.Instance.ArbolID);
         }
 
         public ActionResult Serial()
         {
-            return (ActionResult)Data.Instance.ArbolSerial.GetEnumerator();
+            return View(Data.Instance.ArbolSerial);
         }
     }
 }

@@ -9,7 +9,7 @@ using WebApp.Helpers;
 
 namespace WebApp
 {
-    public class ArbolB<T> : IEnumerable
+    public class ArbolB<T> : IEnumerable<T>, IEnumerable
     {
 
         //Arbol Ordenado
@@ -53,16 +53,16 @@ namespace WebApp
 
         private void InOrder(Nodo<T> root, ref ShowList<T> queue)
         {
-            if(root == null)
+            if(root != null)
             {
-                return;
+                InOrder(root.izq, ref queue);
+                queue.Add(root.info);
+                InOrder(root.der, ref queue);
             }
-            InOrder(root.izq, ref queue);
-            queue.Add(root.info);
-            InOrder(root.der, ref queue);
+            return;
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             var queue = new ShowList<T>();
             InOrder(raiz, ref queue);
